@@ -2,9 +2,10 @@
   "name": "ep2",
   "version": "1.0.0",
   "description": "ep2 learning react",
-  "main": "App.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
   },
   "author": "saranya",
   "license": "ISC",
@@ -13,6 +14,11 @@
     "process": "^0.11.10"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.6.0",
+    "@fortawesome/free-brands-svg-icons": "^6.6.0",
+    "@fortawesome/free-regular-svg-icons": "^6.6.0",
+    "@fortawesome/free-solid-svg-icons": "^6.6.0",
+    "@fortawesome/react-fontawesome": "^0.2.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
