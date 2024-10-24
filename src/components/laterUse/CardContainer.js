@@ -1,0 +1,15 @@
+import { zomatoResponse } from '../../utils/data';
+import Card from '../Card';
+
+const CardContainer = () => {
+    return (
+        <div className="card-container">
+            {
+                zomatoResponse.sections.SECTION_SEARCH_RESULT
+                    .map(res => <Card resName={res.info.name} resRating={res.info.rating.aggregate_rating} resCuisine={res.info.cuisine} resImg={res.info.image}></Card>)   
+            }
+        </div>
+    )
+}
+
+export default CardContainer;
