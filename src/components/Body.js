@@ -15,7 +15,8 @@ const Body = () => {
     useEffect(() => {
         getZomatoData()
         .then(data => setRestaurants(data.sections.SECTION_SEARCH_RESULT) || setDataLoaded(true))
-    }, []); // no dependency provided so will run after component mounted / rendered first time
+    }, []); // no dependency provided in the array so will run after component mounted / rendered first time
+    //* if we don't provide the empty array itself it will call the callback function on every re-render
 
     const [filterOn, setFilterOn] = useState(false);
     const [searchText, setSearchText] = useState("");

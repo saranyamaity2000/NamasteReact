@@ -4479,4 +4479,14 @@ export const getZomatoData = async () => {
         setTimeout(() => res(zomatoResponse), 700);
     });
 }
+
+export const getZomatoResDetailsById = (resId) => {
+    return new Promise((resolve) => {
+        setTimeout(() => 
+            resolve(zomatoResponse.sections.SECTION_SEARCH_RESULT
+                .filter(res => res.info.resId == resId)),
+            100
+        );
+    });
+}
 // zomato has some authentication check on their site which giving unauthorized issue
