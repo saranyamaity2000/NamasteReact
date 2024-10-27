@@ -5,6 +5,7 @@ import { faFilter, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons"
 import Card from './Card';
 import { useEffect, useState } from "react";
 import { getZomatoData } from "../utils/data";
+import { Link } from "react-router-dom";
 
 
 const Body = () => {
@@ -46,7 +47,12 @@ const Body = () => {
                 {
                     dataLoaded ?
                     filteredRes
-                        .map((res, idx) => <Card key={res.info.resId}  resName={res.info.name} resRating={res.info.rating.aggregate_rating} resCuisine={res.info.cuisine} resImg={res.info.image}></Card>)
+                        .map(res => (
+                            <Link key={res.info.resId} to={"/res/" + res.info.resId}>
+                                <Card resName={res.info.name} resRating={res.info.rating.aggregate_rating} resCuisine={res.info.cuisine} resImg={res.info.image}></Card>
+                            </Link>
+                        )
+                    )
                     : Array.from({length: 10}).fill(<Card fakeCard={true}></Card>)
                 }
             </div>

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import logo from '../public/static/pngegg.png'
 
 export const Header = () => {
@@ -8,9 +9,9 @@ export const Header = () => {
             </div>
             <div className="nav-item-container">
                 <ul>
-                    <li className="option">Home</li>
+                    <Link to="/home"><li className="option">Home</li></Link>
                     <li className="gaurd"></li>
-                    <li className="option">About Us</li>
+                    <Link to='/about'><li className="option">About Us</li></Link>
                     <li className="gaurd"></li>
                     <li className="option">Contact</li>
                     <li className="gaurd"></li>

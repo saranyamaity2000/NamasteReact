@@ -3,8 +3,9 @@ import { Header } from "./components/Header";
 import Body from "./components/Body";
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 import About from './components/About';
-import ErrorComp from './components/ErrorComp';
-import NotFound from './components/NotFound';
+import ErrorComp from './components/unhappyPathComps/ErrorComp';
+import NotFound from './components/UnhappyPathComps/NotFound';
+import Restaurant from './components/Restaurant';
 
 /** Rough Tree
  * 
@@ -34,7 +35,7 @@ const App = () => {
 const router = createBrowserRouter([
     {
         element: <App></App>,
-        path: '/app',
+        path: '/',
         children: [
             {
                 element: <Body></Body>,
@@ -42,11 +43,15 @@ const router = createBrowserRouter([
             },
             {
                 element: <Body></Body>,
-                path: '/app/home' // starts with / so absolute path
+                path: '/home' // starts with / so absolute path
             },
             {
                 element: <About></About>,
                 path: 'about' // relative path to parent
+            },
+            {
+                element: <Restaurant></Restaurant>,
+                path: '/res/:resId'
             }
         ],
         errorElement: <ErrorComp></ErrorComp> // better way to handle unexpected errors to show in UI (currently no practical example used here)

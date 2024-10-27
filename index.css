@@ -119,3 +119,8 @@ li.gaurd {
     font-size: 20px;
     text-wrap: wrap;
 } */
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
