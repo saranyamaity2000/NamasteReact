@@ -1,11 +1,17 @@
-const Card = ({resRating, resImg, resName}) => {
+const Card = ({resRating, resImg, resName, fakeCard}) => {
     return (
         <div className="card">
             <div className="card-image">
-                <img src={resImg.url} alt="img" />
+                {
+                    !fakeCard && (<img src={resImg.url} alt="img" />)
+                }
             </div>
-            <p className="res-name">{resName}</p>
-            <p>⭐️{resRating}</p>
+            {!fakeCard && (
+                <>
+                    <p className="res-name">{resName}</p>
+                    <p>⭐️{resRating}</p>
+                </>
+            )}
         </div>
     )
 }
