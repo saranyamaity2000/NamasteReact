@@ -2,10 +2,11 @@ import ReactDOM from 'react-dom/client'
 import { Header } from "./components/Header";
 import Body from "./components/Body";
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
-import About from './components/About';
 import ErrorComp from './components/unhappyPathComps/ErrorComp';
 import NotFound from './components/UnhappyPathComps/NotFound';
 import Restaurant from './components/Restaurant';
+import { lazy, Suspense } from 'react';
+const About = lazy(() => import('./components/About'));
 
 /** Rough Tree
  * 
@@ -46,7 +47,7 @@ const router = createBrowserRouter([
                 path: '/home' // starts with / so absolute path
             },
             {
-                element: <About></About>,
+                element: <Suspense fallback={<Body></Body>}><About></About></Suspense>,
                 path: 'about' // relative path to parent
             },
             {

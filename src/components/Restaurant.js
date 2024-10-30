@@ -1,17 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useParams } from 'react-router-dom'
-import { getZomatoResDetailsById } from '../utils/data';
+import useRestaurantById from '../utils/hooks/useResturant';
 
 function Restaurant() {
-    const [resData, setResData] = useState(null);
     const {resId} = useParams();
 
-    useEffect(() => {
-        getZomatoResDetailsById(resId).then(data => {
-            setResData(data);
-            console.log(data);
-        });
-    }, []); // empty to make sure it runs only on didMount
+    const resData = useRestaurantById(resId);
 
     const {name, rating, cuisine} = resData?.info ?? {};
 
@@ -20,7 +14,6 @@ function Restaurant() {
             <h1>Restaurant : {name ?? 'N/A'}</h1>
             <h4>rating : {rating?.aggregate_rating ?? 'N/A'} </h4>
         </div>
-        
     )
 }
 
