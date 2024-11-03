@@ -165,7 +165,7 @@ const menusResponse = {
                     "clickActionDeeplink": ""
                 },
                 "distance": "971 m",
-                "isPromoted": false,
+                "isPromoted": true,
                 "promotedText": "",
                 "trackingData": [
                     {
@@ -729,7 +729,7 @@ const menusResponse = {
                     "clickActionDeeplink": ""
                 },
                 "distance": "964 m",
-                "isPromoted": false,
+                "isPromoted": true,
                 "promotedText": "",
                 "trackingData": [
                     {
@@ -1817,7 +1817,7 @@ const menusResponse = {
                     "clickActionDeeplink": ""
                 },
                 "distance": "1.6 km",
-                "isPromoted": false,
+                "isPromoted": true,
                 "promotedText": "",
                 "trackingData": [
                     {
@@ -2192,7 +2192,7 @@ const menusResponse = {
                     "clickActionDeeplink": ""
                 },
                 "distance": "3 km",
-                "isPromoted": false,
+                "isPromoted": true,
                 "promotedText": "",
                 "trackingData": [
                     {

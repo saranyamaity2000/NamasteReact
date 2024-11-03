@@ -8,7 +8,9 @@ import { Link } from "react-router-dom";
 import useToggle from "../utils/hooks/useToggle";
 import useFilteredRestaurants from "../utils/hooks/useFilteredRestaurant";
 import useRestaurants from "../utils/hooks/useRestaurants";
+import withPromotion from "../utils/hoc/withPromotion";
 
+const PromotedRestaurantCard = withPromotion(RestaurantCard);
 
 const Body = () => {
     const restaurants = useRestaurants();
@@ -39,7 +41,9 @@ const Body = () => {
                     filteredRes
                         .map(res => (
                             <Link key={res.info.resId} to={"/res/" + res.info.resId}>
-                                <RestaurantCard resName={res.info.name} resRating={res.info.rating.aggregate_rating} resCuisine={res.info.cuisine} resImg={res.info.image}></RestaurantCard>
+                                {console.log(res.isPromoted)}
+                                {!res.isPromoted && <RestaurantCard resName={res.info.name} resRating={res.info.rating.aggregate_rating} resCuisine={res.info.cuisine} resImg={res.info.image}></RestaurantCard>}
+                                {res.isPromoted && <PromotedRestaurantCard resName={res.info.name} resRating={res.info.rating.aggregate_rating} resCuisine={res.info.cuisine} resImg={res.info.image}></PromotedRestaurantCard>}
                             </Link>
                         )
                     )

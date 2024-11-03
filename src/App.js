@@ -5,7 +5,9 @@ import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 import ErrorComp from './components/unhappyPathComps/ErrorComp';
 import NotFound from './components/UnhappyPathComps/NotFound';
 import Restaurant from './components/Restaurant';
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
+import OwnerContext from './utils/contexts/OwnerContext';
+import { GITHUB_OWNER_URI } from './utils/constants';
 const About = lazy(() => import('./components/About'));
 
 /** Rough Tree
@@ -25,10 +27,18 @@ const About = lazy(() => import('./components/About'));
  */
 
 const App = () => {
+    const [owner, setOwner] = useState({});
+    useEffect(() => {
+        fetch(GITHUB_OWNER_URI)
+            .then(data => data.json())
+            .then(data => setOwner(data));
+    }, []);
     return (
         <div className="app">
-            <Header></Header>
-            <Outlet></Outlet>
+            <OwnerContext.Provider value={{...owner, learning: "Context Provider & Consumer & useContext"}}>
+                <Header></Header>
+                <Outlet></Outlet>
+            </OwnerContext.Provider>
         </div>
     );
 };
