@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
-import { getZomatoData } from "../data";
-import { useParams } from 'react-router-dom'
+import { MenuService } from "../data";
+import { CURRENT_SERVICE_PROVIDER } from "../constants";
 
 const useRestaurants = () => {
     const [restaurants, setRestaurants] = useState(null);
-
+    const menuService = new MenuService(CURRENT_SERVICE_PROVIDER);
     useEffect(() => {
-        getZomatoData()
-            .then(data => setRestaurants(data.sections.SECTION_SEARCH_RESULT))
+        menuService.getAllResData()
+            .then(data => setRestaurants(data))
     }, []); // no dependency provided in the array so will run after component mounted / rendered first time
     //* if we don't provide the empty array itself it will call the callback function on every re-render
 

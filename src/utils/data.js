@@ -1,4 +1,6 @@
-const zomatoResponse = {
+import { SWIGGY_RES_URI } from "./constants";
+
+const menusResponse = {
     "sections": {
         "SECTION_SEARCH_RESULT": [...[
             {
@@ -4474,17 +4476,81 @@ const zomatoResponse = {
     },
 }
 
-export const getZomatoData = async () => {
-    return new Promise((res) => {
-        setTimeout(() => res(zomatoResponse), 700);
-    });
-}
-
-export const getZomatoResDetailsById = async (resId) => {
-    return new Promise((resolve) => {
-        const targetData = zomatoResponse.sections.SECTION_SEARCH_RESULT.find(res => res.info.resId == resId);
-        console.log("data: ", targetData); 
-        setTimeout(() => resolve(targetData), 100);
-    });
+export class MenuService {
+    constructor(resName) {
+        this.resName = resName;
+    }
+    async getAllResData() {
+        if (this.resName === 'zomato') {
+            return new Promise((res) => {
+                setTimeout(() => res(menusResponse.sections.SECTION_SEARCH_RESULT), 700);
+            });
+        } else if (resName === 'swiggy') {
+            return new Promise((res) => {
+                fetch(SWIGGY_RES_URI).then(data => data.json()).then(data => res(data));
+            })
+        }
+    }
+    async getResDetailsById(resId) {
+        if (this.resName === 'zomato') {
+            return new Promise((resolve) => {
+                const targetData = menusResponse.sections.SECTION_SEARCH_RESULT.find(res => res.info.resId == resId);
+                console.log("data: ", targetData);
+                setTimeout(() => resolve(targetData), 100);
+            });
+        } else {
+            return null;
+        }
+    }
+    async getExtraResData(resName, startingFrom) {
+        if (this.resName !== 'swiggy') return [];
+        const rawData = await fetch("https://www.swiggy.com/dapi/restaurants/list/update", {
+            "headers": {
+                "__fetch_req__": "true",
+                "accept": "*/*",
+                "accept-language": "en-GB,en;q=0.9",
+                "cache-control": "no-cache",
+                "content-type": "application/json",
+                "pragma": "no-cache",
+                "priority": "u=1, i",
+                "sec-ch-ua": "\"Chromium\";v=\"130\", \"Brave\";v=\"130\", \"Not?A_Brand\";v=\"99\"",
+                "sec-ch-ua-mobile": "?0",
+                "sec-ch-ua-platform": "\"macOS\"",
+                "sec-fetch-dest": "empty",
+                "sec-fetch-mode": "cors",
+                "sec-fetch-site": "same-origin",
+                "sec-gpc": "1"
+            },
+            "referrer": "https://www.swiggy.com/",
+            "referrerPolicy": "strict-origin-when-cross-origin",
+            "body": JSON.stringify({
+                "lat": 22.6020984,
+                "lng": 88.38294549999999,
+                "nextOffset": "CJhlELQ4KICIgr/AmrOzXTCnEzgE",
+                "widgetOffset": {
+                    "NewListingView_category_bar_chicletranking_TwoRows": "",
+                    "NewListingView_category_bar_chicletranking_TwoRows_Rendition": "",
+                    "Restaurant_Group_WebView_PB_Theme": "",
+                    "Restaurant_Group_WebView_SEO_PB_Theme": "",
+                    "collectionV5RestaurantListWidget_SimRestoRelevance_food_seo": startingFrom.toString(),
+                    "inlineFacetFilter": "",
+                    "restaurantCountWidget": ""
+                },
+                "filters": {},
+                "seoParams": {
+                    "seoUrl": "https://www.swiggy.com/",
+                    "pageType": "FOOD_HOMEPAGE",
+                    "apiName": "FoodHomePage"
+                },
+                "page_type": "DESKTOP_WEB_LISTING"
+            }),
+            "method": "POST",
+            "mode": "cors",
+            "credentials": "include"
+        });
+        const jsonData = await rawData.json();
+        console.log(jsonData);
+        return jsonData;
+    };
 }
 // zomato has some authentication check on their site which giving unauthorized issue
