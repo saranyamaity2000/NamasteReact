@@ -1,0 +1,1 @@
+export const GITHUB_OWNER_URI = "https://api.github.com/users/saranyamaity2000";
