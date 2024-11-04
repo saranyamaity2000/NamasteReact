@@ -8,6 +8,10 @@ import Restaurant from './components/Restaurant';
 import { lazy, Suspense, useEffect, useState } from 'react';
 import OwnerContext from './utils/contexts/OwnerContext';
 import { GITHUB_OWNER_URI } from './utils/constants';
+import { Provider } from 'react-redux';
+import appStore from './utils/redux-store/appStore';
+
+
 const About = lazy(() => import('./components/About'));
 
 /** Rough Tree
@@ -35,10 +39,12 @@ const App = () => {
     }, []);
     return (
         <div className="app">
-            <OwnerContext.Provider value={{...owner, learning: "Context Provider & Consumer & useContext"}}>
-                <Header></Header>
-                <Outlet></Outlet>
-            </OwnerContext.Provider>
+            <Provider store={appStore}>
+                <OwnerContext.Provider value={{ ...owner, learning: "Context Provider & Consumer & useContext" }}>
+                    <Header></Header>
+                    <Outlet></Outlet>
+                </OwnerContext.Provider>
+            </Provider>
         </div>
     );
 };

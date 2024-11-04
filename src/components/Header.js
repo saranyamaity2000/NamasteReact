@@ -2,10 +2,14 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import logo from '../public/static/pngegg.png'
 import useOnlineStatus from '../utils/hooks/useOnlineStatus';
+import { useSelector } from 'react-redux';
 
 export const Header = () => {
     const isOnline = useOnlineStatus();
     const [showTooltip, setShowTooltip] = useState(false);
+
+    const favRes = useSelector(state => state.res?.favRes ?? []);
+    console.log(favRes);
 
     return (
         <div className="header h-32 mb-5 bg-orange-200 flex justify-between">
@@ -43,7 +47,7 @@ export const Header = () => {
                     </li>
                     <li className="gaurd"></li>
                     <li className="option font-bold hover:cursor-pointer p-3 text-2xl transition duration-300 ease transform hover:scale-110">
-                        Cart
+                        Fav ({favRes.length})
                     </li>
                 </ul>
             </div>
